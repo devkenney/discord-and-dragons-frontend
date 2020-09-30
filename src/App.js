@@ -11,11 +11,11 @@ function App() {
     <div className="App">
       <Switch>
         <Route
-          path={`/groups/:id`}
+          path={`/groups/:slug`}
           component={Group}
         />
         <Route
-          path={'/sheets/:id'}
+          path={'/sheets'}
           component={Sheet}
         />
       </Switch>
