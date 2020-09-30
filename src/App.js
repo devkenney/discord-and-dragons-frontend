@@ -4,7 +4,7 @@ import axios from 'axios'
 import 'bootswatch/dist/sketchy/bootstrap.min.css';
 import Group from './components/Group.js';
 import Sheet from './components/Sheet.js';
-import './App.css';
+import New from './components/New.js'
 
 function App() {
   return (
@@ -17,6 +17,10 @@ function App() {
         <Route
           path={'/sheets'}
           component={Sheet}
+        />
+        <Route
+          path={'/new'}
+          component={New}
         />
       </Switch>
     </div>

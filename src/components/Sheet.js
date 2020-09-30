@@ -5,7 +5,6 @@ import SkillShow from './SkillShow'
 import Username from './Username';
 
 export default function Sheet(props) {
-  const id = props.match.params.id;
   const [sheet, setSheet] = useState({});
   const [skills, setSkills] = useState([]);
   const [userInfo, setInfo] = useState({});
@@ -28,22 +27,28 @@ export default function Sheet(props) {
       setInfo(response.data)
     }
 
-    const fragment = new URLSearchParams(window.location.hash.slice(1));
-
-    if (fragment.has("access_token")) {
-      const accessToken = fragment.get("access_token");
-      const tokenType = fragment.get("token_type");
-      fetchUserData(tokenType, accessToken);
+    if (localStorage.accessToken) {
+      fetchUserData(localStorage.tokenType, localStorage.accessToken)
+    } else {
+      const fragment = new URLSearchParams(window.location.hash.slice(1));
+      if (fragment.has("access_token")) {
+        const accessToken = fragment.get("access_token");
+        const tokenType = fragment.get("token_type");
+        fetchUserData(tokenType, accessToken);
+        localStorage.setItem('tokenType', tokenType);
+        localStorage.setItem('accessToken', accessToken);
+      }
     }
   }, [])
 
   return (
     <Container>
-      <Jumbotron style={{ margin: 20 }}>
+      <Jumbotron className="mt-5">
         <Row>
           <Col sm="5">
             <Alert variant="primary" className="p-1">
-              <h2 className="m-0">Character Name Here</h2>
+              <h2 className="m-0">Septa the Ineffable</h2>
+              <hr className="m-0" />
               <Username info={userInfo} />  
             </Alert>
           </Col>
@@ -51,17 +56,17 @@ export default function Sheet(props) {
             <Jumbotron className="p-2 bg-secondary text-light">
               <Row>
                 <Col sm="4" className="text-left">
-                  class name
+                  Sourcerer
                   <hr className="bg-light m-0" />
                   <small>Class</small>
                 </Col>
                 <Col sm="4" className="text-left">
-                  Race name
+                  Literally a Crab
                   <hr className="bg-light m-0" />
                   <small>Race</small>
                 </Col>
                 <Col sm="4" className="text-left">
-                  alignment name
+                  Chaotic Neutral
                   <hr className="bg-light m-0" />
                   <small>Alignment</small>
                 </Col>
@@ -70,7 +75,7 @@ export default function Sheet(props) {
           </Col>
         </Row>
         <Row>
-          <Col sm="2">
+          <Col sm="2" className="text-center">
             <h5>Stats</h5>
             <Card bg="dark" text="warning" className="my-3">
               <Card.Header className="p-0"><small>Strength</small></Card.Header>
@@ -104,7 +109,7 @@ export default function Sheet(props) {
             </Card>
           </Col>
           <Col sm="2">
-            <h5>Skills</h5>
+            <h5 className="text-center">Skills</h5>
             <SkillShow skills={skills} />
           </Col>
         </Row>
