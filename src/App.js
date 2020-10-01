@@ -4,9 +4,12 @@ import axios from 'axios'
 import 'bootswatch/dist/sketchy/bootstrap.min.css';
 import Group from './components/Group.js';
 import Sheet from './components/Sheet.js';
-import New from './components/New.js'
+import EditInfo from './components/EditInfo.js'
+import EditCombat from './components/EditCombat.js'
 
 function App() {
+
+
   return (
     <div className="App">
       <Switch>
@@ -19,8 +22,12 @@ function App() {
           component={Sheet}
         />
         <Route
-          path={'/new'}
-          component={New}
+          path={'/edit/info'}
+          component={EditInfo}
+        />
+        <Route
+          path={'/edit/combat'}
+          component={EditCombat}
         />
       </Switch>
     </div>
